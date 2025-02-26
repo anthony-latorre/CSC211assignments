@@ -1,0 +1,55 @@
+class Shape {
+    protected int sides; // Number of sides
+
+    // Constructor
+    public Shape(int sides) {
+        this.sides = sides;
+    }
+
+    // Getter
+    public int getSides() {
+        return sides;
+    }
+
+    // Setter
+    public void setSides(int sides) {
+        this.sides = sides;
+    }
+}
+
+// Circle subclass of Shape
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        super(0); // Circles have 0 sides
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+}
+
+// Rectangle subclass of Shape
+class Rectangle extends Shape {
+    private double length, width;
+
+    public Rectangle(double length, double width) {
+        super(4); // Rectangles have 4 sides
+        this.length = length;
+        this.width = width;
+    }
+
+    public double getArea() {
+        return length * width;
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        Circle circle = new Circle(5.0);
+        System.out.println("Circle sides: " + circle.getSides()); // Using Shape's getter
+    }
+}

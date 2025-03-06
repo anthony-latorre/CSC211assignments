@@ -1,0 +1,40 @@
+//EXAMPLE 1//
+
+public class Add {
+    public int sum(int a, int b) {
+        return a + b;
+    }
+}
+public class AddTest {
+    @Test
+    public void testSum() {
+        Add add = new Add();
+        int result = add.sum(2, 3);
+        assertEquals(5, result, "The sum of 2 and 3 should be 5");
+    }
+}
+
+//Sum method adds the two numbers. Test is added to call the sum method with two numbers (2 and 3) to check the result, which should be 5.//
+
+
+
+//EXAMPLE 2//
+
+public class NumberUtils {
+    public boolean isEven(int number) {
+        return number % 2 == 0; 
+    }
+}
+
+public class NumberUtilsTest {
+    @Test
+    public void testIsEven() {
+        NumberUtils numberUtils = new NumberUtils(); 
+        boolean result = numberUtils.isEven(4); 
+        assertTrue(result, "4 should be an even number"); 
+    }
+}
+
+
+//This is a classic example of checking if a number is even by using a boolean to see if the remainder is 0//
+//when the number is divided by 2. We then call the isEven method for testing, using the number 4. The result should be true because 4 is an even number.//

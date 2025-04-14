@@ -1,0 +1,52 @@
+
+class Animal {
+    public void makeSound() {
+        System.out.println("Some generic animal sound");
+    }
+}
+
+// Dog inherits from Animal
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+// Cat inherits from Animal
+class Cat extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+// Composition: Owner has Animal
+class Owner {
+    private String name;
+    private Animal pet; 
+
+    public Owner(String name, Animal pet) {
+        this.name = name;
+        this.pet = pet;
+    }
+
+    public void introducePet() {
+        System.out.println(name + " says: This is my pet!");
+        pet.makeSound(); 
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog(); 
+        Animal myCat = new Cat(); 
+
+        Owner john = new Owner("John", myDog); 
+        Owner lisa = new Owner("Lisa", myCat); 
+
+        john.introducePet(); 
+        lisa.introducePet(); 
+    }
+}

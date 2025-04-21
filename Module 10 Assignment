@@ -1,0 +1,40 @@
+//abstract
+
+abstract class Animal {
+    abstract void makeSound(); 
+}
+
+class Dog extends Animal {
+    void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.makeSound(); 
+    }
+}
+
+//interface
+
+interface Animal {
+    void makeSound();  // Method in the interface
+}
+
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.makeSound();  // Outputs: Woof!
+    }
+}
+
+
+//abstract sets a common ground for classes with shared data, interface sets methods for multiple classes to use that are otherwise unrelated

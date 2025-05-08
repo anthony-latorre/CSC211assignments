@@ -28,3 +28,37 @@ public class Fibonacci {
 
         return b;
     }
+
+public class DecimalToBinary {
+
+ 
+    public static String decimalToBinaryRecursive(int n) {
+        if (n == 0) {
+            return "";
+        } else {
+            return decimalToBinaryRecursive(n / 2) + (n % 2);
+        }
+    }
+
+    public static String convertRecursive(int n) {
+        if (n == 0) {
+            return "0";
+        } else {
+            return decimalToBinaryRecursive(n);
+        }
+    }
+
+    public static String decimalToBinaryIterative(int n) {
+        if (n == 0) {
+            return "0";
+        }
+
+        String binary = "";
+
+        while (n > 0) {
+            binary = (n % 2) + binary; // Add remainder to front
+            n = n / 2; // Divide by 2
+        }
+
+        return binary;
+    }

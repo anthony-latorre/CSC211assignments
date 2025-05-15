@@ -1,0 +1,134 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Product {
+    protected String name;
+    protected double price;
+    protected String category;
+
+    public Product(String name, double price, String category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public String getCategory() { return category; }
+
+    @Override
+    public String toString() {
+        return name + " - $" + price + " [" + category + "]";
+    }
+}
+
+
+class Clothing extends Product {
+    private String size;
+
+    public Clothing(String name, double price, String size) {
+        super(name, price, "Clothing");
+        this.size = size;
+    }
+}
+
+
+class User {
+    protected String name;
+    protected String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+class Customer extends User {
+    List<Product> cart = new ArrayList<>();
+
+    public Customer(String name, String email) {
+        super(name, email);
+    }
+
+    public void addToCart(Product p) {
+        cart.add(p);
+    }
+
+    public Order placeOrder() {
+        return new Order(this, cart);
+    }
+}
+
+class Admin extends User {
+    public Admin(String name, String email) {
+        super(name, email);
+    }
+
+    public void addProduct(List<Product> products, Product p) {
+        products.add(p);
+    }
+}
+
+
+class Order {
+    private Customer customer;
+    private List<Product> items;
+    private double total;
+    private double tax;
+    private double shipping;
+
+    public Order(Customer customer, List<Product> items) {
+        this.customer = customer;
+        this.items = new ArrayList<>(items);
+        calculateTotals();
+    }
+
+    private void calculateTotals() {
+        total = items.stream().mapToDouble(p -> p.getPrice()).sum();
+        tax = total * 0.1; // 10% tax
+        shipping = total > 100 ? 0 : 10; // Free shipping over $100
+    }
+
+    public double getTotal() {
+        return total + tax + shipping;
+    }
+
+    @Override
+    public String toString() {
+        return "Order for " + customer.name + ": Total = $" + String.format("%.2f", getTotal());
+    }
+}
+
+public class ECommercePlatform {
+    public static void main(String[] args) {
+        List<Product> productList = new ArrayList<>();
+        Admin admin = new Admin("Alice", "admin@example.com");
+
+    
+        admin.addProduct(productList, new Clothing("Shirt", 25.00, "M"));
+        admin.addProduct(productList, new Clothing("Pants", 40.00, "L"));
+        admin.addProduct(productList, new Clothing("Shoes", 60.00, "42"));
+
+
+        System.out.println("All Products:");
+        productList.forEach(System.out::println);
+
+        System.out.println("\nSearch Results for 'Shirt':");
+        productList.stream()
+            .filter(p -> p.getName().toLowerCase().contains("shirt"))
+            .forEach(System.out::println);
+
+        System.out.println("\nProducts Sorted by Price:");
+        productList.stream()
+            .sorted(Comparator.comparing(Product::getPrice))
+            .forEach(System.out::println);
+
+        Customer customer = new Customer("Bob", "bob@example.com");
+        customer.addToCart(productList.get(0)); // Shirt
+        customer.addToCart(productList.get(2)); // Shoes
+
+        Order order = customer.placeOrder();
+        System.out.println("\nOrder Summary:");
+        System.out.println(order);
+    }
+}
